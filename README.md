@@ -9,3 +9,9 @@
 1. Data : data구하기 위한 작업물 폴더
 2. OCR : 이미지 OCR 작업물 폴더
 3. NMT : 기계번역(Machine Translate)작업 폴더
+
+## 일정/공유사항 등의 작성
+### 1. Issues : 프로젝트를 진행하면서 일어날 수 있는 모든 일에 대해 작성한다
+  - 작성시 분류방법 : 제목앞에 []로 표시하되 TODO/ISSUE/개발/Metting 으로 구분하여 작성  
+    (ex: [TODD]OCR 구현을 위한 자료 조사)
+### 2. Projcts : 이 프로젝트를 진행하면서 진행해야 할 일을 TO-DO List 형태로 등록한다
