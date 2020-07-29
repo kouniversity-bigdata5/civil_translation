@@ -3,12 +3,19 @@
 원하는 민원 서식을 이미지 형태로 나타낸 후, 텍스트 추출
 
 ## OCR 과정
-1. Image loading
+1. Image 전처리(노이즈 제거, 배경색 제거 등)
 
-2. Text Detection : 이미지에서 텍스트 찾기
+2. Text Detection : 이미지에서 텍스트 추출
 
-3. Text Recognition : 이미지에서 찾은 텍스트를 인식
+3. Text Recognition : 추출된 텍스트를 인식
+
+4. Text 후처리
 
 ## 소스코드
-#### east_text_detection.py  
-east model을 활용한 text detection sample 소스
+### east_example1/east_text_detection.py  
+east model을 활용한 text detection sample 소스  
+[참고소스](https://www.pyimagesearch.com/2018/08/20/opencv-text-detection-east-text-detector/)
+
+### text_detection_east/*
+east model 논문 구현(진행중)  
+[참고소스](https://github.com/zxytim/EAST)
