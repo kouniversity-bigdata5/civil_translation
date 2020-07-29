@@ -36,7 +36,7 @@ layerNames = [
 print('[INFO] loading EAST text detector ...')
 net = cv2.dnn.readNet(args['east'])
 
-blob = cv2.dnn.blobFromImage(image, 1.0, (W, H), (123.68, 116.78, 103.94), swapPB=True, crop=False)
+blob = cv2.dnn.blobFromImage(image, 1.0, (W, H), (123.68, 116.78, 103.94), swapRB=True, crop=False)
 start = time.time()
 net.setInput(blob)
 (scores, geometry) = net.forward(layerNames)
