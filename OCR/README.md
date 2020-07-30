@@ -17,5 +17,5 @@ east model을 활용한 text detection sample 소스
 [참고소스](https://www.pyimagesearch.com/2018/08/20/opencv-text-detection-east-text-detector/)
 
 ### text_detection_east/*
-east model 논문 구현(진행중)  
-[참고소스](https://github.com/zxytim/EAST)
+한글 OCR git 참고(진행중) 
+[참고소스](https://github.com/parksunwoo/ocr_kor)
