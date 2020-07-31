@@ -16,3 +16,8 @@ OCR/opencv-text-detection
 .vscode/
 Data/My First Project-22345423bbbe.json
 Data/corpus.db
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/fonts/*
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/out/*
+OCR/deep-text-recognition-benchmark/data/test/*
+OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/train/*
+OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/test/*
