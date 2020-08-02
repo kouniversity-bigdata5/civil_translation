@@ -19,5 +19,13 @@ Data/corpus.db
 OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/fonts/*
 OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/out/*
 OCR/deep-text-recognition-benchmark/data/test/*
-OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/train/*
-OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/test/*
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/training/*
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/test/*
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/validation/*
+OCR/deep-text-recognition-benchmark/data/generator/TextRecognitionDataGenerator/gt_*.txt
+OCR/deep-text-recognition-benchmark/data/training/*
+OCR/deep-text-recognition-benchmark/data/validation/*
+OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/saved_models/*
+OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/modules/__pycache__/*
+OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/__pycache__/*
+OCR/deep-text-recognition-benchmark/data/data_lmdb_release/*
