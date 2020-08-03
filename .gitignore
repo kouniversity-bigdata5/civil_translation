@@ -29,3 +29,4 @@ OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/saved_models
 OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/modules/__pycache__/*
 OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/__pycache__/*
 OCR/deep-text-recognition-benchmark/data/data_lmdb_release/*
+OCR/deep-text-recognition-benchmark/data/demo_image/*
