@@ -10,6 +10,7 @@ Data/data/
 Data/sejong_corpus_cleaner/
 Data/petitions_dataset/
 Data/korean_image/
+Data/merged_minwon_text.txt
 OCR/tesseract-python/
 OCR/tesseract-python.zip
 OCR/opencv-text-detection
@@ -36,3 +37,5 @@ NMT/ko_en_neural_machine_translation/maso_ver/*
 NMT/ko_en_neural_machine_translation/ko_en.dic
 NMT/ko_en_neural_machine_translation/ko_en.mdl
 NMT/ko_en_neural_machine_translation/ko_en.np
+NMT/simple-nmt/test/*
+NMT/simple-nmt/data/corpus.*
