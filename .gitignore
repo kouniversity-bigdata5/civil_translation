@@ -40,3 +40,4 @@ NMT/ko_en_neural_machine_translation/ko_en.np
 NMT/simple-nmt/test/*
 NMT/simple-nmt/data/corpus.*
 NMT/.ipynb_checkpoints/*
+Data/corpus.*

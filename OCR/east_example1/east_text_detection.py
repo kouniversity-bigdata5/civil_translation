@@ -33,8 +33,10 @@ layerNames = [
 ]
 
 # load pre-trained EAST text decorator (from frozen_east_text_detection.pb)
-print('[INFO] loading EAST text detector ...')
-net = cv2.dnn.readNet(args['east'])
+# print('[INFO] loading EAST text detector ...')
+# net = cv2.dnn.readNet(args['east'])
+print('[INFO] loading deep-text-recognition-detection text detector ...')
+net = cv2.dnn.readNetFromTorch("best_accuracy.pth")
 
 blob = cv2.dnn.blobFromImage(image, 1.0, (W, H), (123.68, 116.78, 103.94), swapRB=True, crop=False)
 start = time.time()
