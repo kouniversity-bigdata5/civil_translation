@@ -25,6 +25,7 @@ from simple_nmt.trainer import MaximumLikelihoodEstimationEngine
 def define_argparser(is_continue=False):
     p = argparse.ArgumentParser()
 
+    # model을 불러서 사용할 경우(기존 모델 재학습시에 사용)
     if is_continue:
         p.add_argument(
             '--load_fn',
@@ -32,26 +33,35 @@ def define_argparser(is_continue=False):
             help='Model file name to continue.'
         )
 
+    # 모델 파일 명
     p.add_argument(
         '--model_fn',
         required=not is_continue,
         help='Model file name to save. Additional information would be annotated to the file name.'
     )
+    
+    # training 할 파일명
     p.add_argument(
         '--train',
         required=not is_continue,
         help='Training set file name except the extention. (ex: train.en --> train)'
     )
+
+    # validation 할 파일명
     p.add_argument(
         '--valid',
         required=not is_continue,
         help='Validation set file name except the extention. (ex: valid.en --> valid)'
     )
+
+    # 번역할 language 
     p.add_argument(
         '--lang',
         required=not is_continue,
         help='Set of extention represents language pair. (ex: en + ko --> enko)'
     )
+
+    # train시 사용할 gpu id, -1이면 CPU로 실행하며, default는 -1
     p.add_argument(
         '--gpu_id',
         type=int,
@@ -59,24 +69,31 @@ def define_argparser(is_continue=False):
         help='GPU ID to train. Currently, GPU parallel is not supported. -1 for CPU. Default=%(default)s'
     )
 
+    # gradient descent 시의 mini batch size
     p.add_argument(
         '--batch_size',
         type=int,
         default=32,
         help='Mini batch size for gradient descent. Default=%(default)s'
     )
+
+    # train epoch 횟수
     p.add_argument(
         '--n_epochs',
         type=int,
         default=15,
         help='Number of epochs to train. Default=%(default)s'
     )
+    
+    # train 시 상태바 표시(batch wise 마다)
     p.add_argument(
         '--verbose',
         type=int,
         default=2,
         help='VERBOSE_SILENT, VERBOSE_EPOCH_WISE, VERBOSE_BATCH_WISE = 0, 1, 2. Default=%(default)s'
     )
+
+    # 초기 epoch number 값 설정
     p.add_argument(
         '--init_epoch',
         type=int,
@@ -84,36 +101,47 @@ def define_argparser(is_continue=False):
         help='Set initial epoch number, which can be useful in continue training. Default=%(default)s'
     )
 
+    # maxiumum training sequence : 최대 트레이닝 문장 길이?
     p.add_argument(
         '--max_length',
         type=int,
         default=80,
         help='Maximum length of the training sequence. Default=%(default)s'
     )
+    
+    # 모델 마지막에 버려야할 node에 대한 수치값 설정
     p.add_argument(
         '--dropout',
         type=float,
         default=.2,
         help='Dropout rate. Default=%(default)s'
     )
+
+    # 단어를 R차원 벡터로 embedding 시키기 위한 크기
     p.add_argument(
         '--word_vec_size',
         type=int,
         default=512,
         help='Word embedding vector dimension. Default=%(default)s'
     )
+
+    # LSTM Hidden Layer의 크기
     p.add_argument(
         '--hidden_size',
         type=int,
         default=768,
         help='Hidden size of LSTM. Default=%(default)s'
     )
+
+    # LSTM의 Layer 개수
     p.add_argument(
         '--n_layers',
         type=int,
         default=4,
         help='Number of layers in LSTM. Default=%(default)s'
     )
+
+    # 기울기의 임계값을 넘지 않게 하기 위한 gradient clipping threshold 값 설정
     p.add_argument(
         '--max_grad_norm',
         type=float,
@@ -121,35 +149,46 @@ def define_argparser(is_continue=False):
         help='Threshold for gradient clipping. Default=%(default)s'
     )
 
+    # Adam Optimizer 사용 여부
     p.add_argument(
         '--use_adam',
         action='store_true',
         help='Use Adam as optimizer instead of SGD. Other lr arguments should be changed.',
     )
+
+    # learning rate 설정
     p.add_argument(
         '--lr',
         type=float,
         default=1.,
         help='Initial learning rate. Default=%(default)s',
     )
+
+    # epoch 에서의 learning rate 감소값 설정. 학습량 조절을 위해 사용
     p.add_argument(
         '--lr_step',
         type=int,
         default=1,
         help='Number of epochs for each learning rate decay. Default=%(default)s',
     )
+
+    # learning 감소 비율
     p.add_argument(
         '--lr_gamma',
         type=float,
         default=.5,
         help='Learning rate decay rate. Default=%(default)s',
     )
+
+    # learning 감소 시작값
     p.add_argument(
         '--lr_decay_start',
         type=int,
         default=10,
         help='Learning rate decay start at. Default=%(default)s',
     )
+
+    # parameter update value
     p.add_argument(
         '--iteration_per_update',
         type=int,
@@ -157,11 +196,13 @@ def define_argparser(is_continue=False):
         help='Number of feed-forward iterations for one parameter update. Default=%(default)s'
     )
 
+    # noam learng rate
     p.add_argument(
         '--use_noam_decay',
         action='store_true',
         help='Use Noam learning rate decay, which is described in "Attention is All You Need" paper.',
     )
+
     p.add_argument(
         '--lr_warmup_ratio',
         type=float,
@@ -169,24 +210,31 @@ def define_argparser(is_continue=False):
         help='Ratio of warming up steps from total iterations for Noam learning rate decay. Default=%(default)s',
     )
 
+    # reinforcement learning을 위한 learning rate
     p.add_argument(
         '--rl_lr',
         type=float,
         default=.01,
         help='Learning rate for reinforcement learning. Default=%(default)s'
     )
+
+    # baseline sample 개수
     p.add_argument(
         '--rl_n_samples',
         type=int,
         default=1,
         help='Number of samples to get baseline. Default=%(default)s'
     )
+
+    # reinforcement learning의 epoch 수
     p.add_argument(
         '--rl_n_epochs',
         type=int,
         default=10,
         help='Number of epochs for reinforcement learning. Default=%(default)s'
     )
+
+    # reinforcement learning의 BLEU 점수 계산을 위한 maximum token 수
     p.add_argument(
         '--rl_n_gram',
         type=int,
@@ -194,29 +242,38 @@ def define_argparser(is_continue=False):
         help='Maximum number of tokens to calculate BLEU for reinforcement learning. Default=%(default)s'
     )
 
+    # Dual Surpervised Learning Method(설정에 따라 모델이 조금씩 달라짐)
     p.add_argument(
         '--dsl',
         action='store_true',
         help='Training with Dual Supervised Learning method.'
     )
+
+    # language model training을 위한 epoch 수
     p.add_argument(
         '--lm_n_epochs',
         type=int,
         default=10,
         help='Number of epochs for language model training. Default=%(default)s'
     )
+
+    # language model training을 위한 batch size
     p.add_argument(
         '--lm_batch_size',
         type=int,
         default=512,
         help='Batch size for language model training. Default=%(default)s',
     )
+
+    # Dual Superviced learning epochs
     p.add_argument(
         '--dsl_n_epochs',
         type=int,
         default=10,
         help='Number of epochs for Dual Supervised Learning. \'--n_epochs\' - \'--dsl_n_epochs\' will be number of epochs for pretraining (without regularization term).'
     )
+
+    # 라그랑주 승수법
     p.add_argument(
         '--dsl_lambda',
         type=float,
@@ -224,11 +281,14 @@ def define_argparser(is_continue=False):
         help='Lagrangian Multiplier for regularization term. Default=%(default)s'
     )
 
+    # transformer 사용여부(사용여부에 따라 Seq2Seq -> Transformer로 변경)
     p.add_argument(
         '--use_transformer',
         action='store_true',
         help='Set model architecture as Transformer.',
     )
+
+    # Transformer에서의 heads 개수
     p.add_argument(
         '--n_splits',
         type=int,
@@ -241,11 +301,13 @@ def define_argparser(is_continue=False):
     return config
 
 def main(config, model_weight=None, opt_weight=None):
+    # config 값 출력(command 창에서 입력한 값들이 출력)
     def print_config(config):
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(vars(config))
     print_config(config)
 
+    # Dual Superviesed Learning 설정한 경우
     if config.dsl:
         loader = DataLoader(
             config.train,
@@ -364,23 +426,26 @@ def main(config, model_weight=None, opt_weight=None):
             n_epochs=config.n_epochs + config.dsl_n_epochs,
             lr_schedulers=None,
         )
-    else:
+    else:   # Dual Supervised Learning 설정 안한 경우
+        
+        # data loader
         loader = DataLoader(
-            config.train,
-            config.valid,
-            (config.lang[:2], config.lang[-2:]),
-            batch_size=config.batch_size,
+            config.train,   # train set
+            config.valid,   # validation set
+            (config.lang[:2], config.lang[-2:]), # language
+            batch_size=config.batch_size, # batch size
             device=-1, #config.gpu_id,
-            max_length=config.max_length,
-            dsl=config.dsl
+            max_length=config.max_length, # max_length 
+            dsl=config.dsl # dsl
         )
 
         # Encoder's embedding layer input size
         input_size = len(loader.src.vocab)
         # Decoder's embedding layer input size and Generator's softmax layer output size
         output_size = len(loader.tgt.vocab)
+        
         # Declare the model
-        if config.use_transformer:
+        if config.use_transformer:  # transformer 사용
             model = Transformer(
                 input_size,
                 config.hidden_size,
@@ -390,7 +455,25 @@ def main(config, model_weight=None, opt_weight=None):
                 n_dec_blocks=config.n_layers,
                 dropout_p=config.dropout,
             )
-        else:
+        else: # transformer 미사용
+            """
+            Seq2Seq(
+                Embedding src (src count, 128)
+                Embedding tgt (tgt count, 128)
+                Encoder - LSTM (128, 32),
+                Decoder - LSTM (192, 64),
+                Attention (
+                    Linear (in: 64, out: 64)
+                    softmax 
+                ),
+                Linear (in: 128, out: 64)
+                Tanh
+                Generator (
+                    Linear (in: 64, out: embedding tgt count)
+                    Logsoftmax
+                )
+            )
+            """
             model = Seq2Seq(
                 input_size,
                 config.word_vec_size,  # Word embedding vector size
@@ -402,8 +485,8 @@ def main(config, model_weight=None, opt_weight=None):
 
         # Default weight for loss equals to 1, but we don't need to get loss for PAD token.
         # Thus, set a weight for PAD to zero.
-        loss_weight = torch.ones(output_size)
-        loss_weight[data_loader.PAD] = 0.
+        loss_weight = torch.ones(output_size) # loss_weight 1로 output_size 만큼 설정
+        loss_weight[data_loader.PAD] = 0. # 나머지는 0 으로 설정
         # Instead of using Cross-Entropy loss,
         # we can use Negative Log-Likelihood(NLL) loss with log-probability.
         crit = nn.NLLLoss(
@@ -414,6 +497,7 @@ def main(config, model_weight=None, opt_weight=None):
         print(model)
         print(crit)
 
+        # 이미 training 된 model을 사용했을 경우(같은 모델로 재 training시 사용)
         if model_weight is not None:
             model.load_state_dict(model_weight)
 
@@ -422,7 +506,9 @@ def main(config, model_weight=None, opt_weight=None):
             model.cuda(config.gpu_id)
             crit.cuda(config.gpu_id)
 
+        # Adam Optimizer 사용
         if config.use_adam:
+            # tranformer 사용 여부
             if config.use_transformer:
                 no_decay = ['bias', 'LayerNorm.weight']
                 optimizer_grouped_parameters = [
@@ -439,15 +525,17 @@ def main(config, model_weight=None, opt_weight=None):
                 optimizer = optim.AdamW(
                     optimizer_grouped_parameters,
                     lr=config.lr,
-                )
+                ) 
             else: # case of rnn based seq2seq.
                 optimizer = optim.Adam(model.parameters(), lr=config.lr)
-        else:
+        else: # SGD Optimizer
             optimizer = optim.SGD(model.parameters(), lr=config.lr)
 
+        # 같은 training model로 실행한 경우
         if opt_weight is not None and config.use_adam:
             optimizer.load_state_dict(opt_weight)
 
+        # noam_decay 여부
         if config.use_noam_decay:
             n_total_iterations = len(loader.train_iter) * config.n_epochs / config.iteration_per_update
             n_warmup_steps = int(n_total_iterations * config.lr_warmup_ratio)
@@ -457,6 +545,7 @@ def main(config, model_weight=None, opt_weight=None):
                 n_total_iterations
             )
         else:
+            # learning rate step 값이 있는 경우
             if config.lr_step > 0:
                 lr_scheduler = optim.lr_scheduler.MultiStepLR(
                     optimizer,
@@ -489,7 +578,9 @@ def main(config, model_weight=None, opt_weight=None):
             lr_scheduler=lr_scheduler,
         )
 
+        # reinforcement learning epoch > 0
         if config.rl_n_epochs > 0:
+            # SGD Optimizer
             optimizer = optim.SGD(model.parameters(), lr=config.rl_lr)
             #optimizer = optim.Adam(model.parameters(), lr=config.rl_lr)
 
@@ -508,5 +599,7 @@ def main(config, model_weight=None, opt_weight=None):
 
 
 if __name__ == '__main__':
+    # input argument config
     config = define_argparser()
+    # main call
     main(config)
