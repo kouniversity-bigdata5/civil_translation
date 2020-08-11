@@ -10,6 +10,7 @@ Data/data/
 Data/sejong_corpus_cleaner/
 Data/petitions_dataset/
 Data/korean_image/
+Data/merged_minwon_text.txt
 OCR/tesseract-python/
 OCR/tesseract-python.zip
 OCR/opencv-text-detection
@@ -30,3 +31,18 @@ OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/modules/__py
 OCR/deep-text-recognition-benchmark/deep-text-recognition-benchmark/__pycache__/*
 OCR/deep-text-recognition-benchmark/data/data_lmdb_release/*
 OCR/deep-text-recognition-benchmark/data/demo_image/*
+NMT/ko_en_neural_machine_translation/img/*
+NMT/ko_en_neural_machine_translation/korean_parallel_corpora/*
+NMT/ko_en_neural_machine_translation/maso_ver/*
+NMT/ko_en_neural_machine_translation/ko_en.dic
+NMT/ko_en_neural_machine_translation/ko_en.mdl
+NMT/ko_en_neural_machine_translation/ko_en.np
+NMT/simple-nmt/test/*
+NMT/simple-nmt/data/corpus.*
+NMT/.ipynb_checkpoints/*
+Data/corpus.*
+Data/sejong.txt
+NMT/simple-nmt/simple_nmt/__pycache__/*
+NMT/simple-nmt/simple_nmt/models/__pycache__/*
+NMT/training_checkpoints/*
+NMT/simple-nmt/models/*
