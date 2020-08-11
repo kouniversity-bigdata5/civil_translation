@@ -111,7 +111,8 @@ class SingleBeamSearchSpace():
         # Because we picked from whole batch, original word index should be calculated again.
         self.word_indice += [top_indice.fmod(output_size)]
         # Also, we can get an index of beam, which has top-k log-probability search result.
-        self.prev_beam_indice += [top_indice.div(output_size).long()]
+        # self.prev_beam_indice += [top_indice.div(output_size).long()] # pytorch 1.5 
+        self.prev_beam_indice += [(top_indice // output_size).long()] # pytorch 1.6
 
         # Add results to history boards.
         self.cumulative_probs += [top_log_prob]

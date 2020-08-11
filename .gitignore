@@ -41,3 +41,8 @@ NMT/simple-nmt/test/*
 NMT/simple-nmt/data/corpus.*
 NMT/.ipynb_checkpoints/*
 Data/corpus.*
+Data/sejong.txt
+NMT/simple-nmt/simple_nmt/__pycache__/*
+NMT/simple-nmt/simple_nmt/models/__pycache__/*
+NMT/training_checkpoints/*
+NMT/simple-nmt/models/*

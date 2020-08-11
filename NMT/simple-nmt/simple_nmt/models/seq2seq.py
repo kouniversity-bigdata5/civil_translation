@@ -128,7 +128,8 @@ class Generator(nn.Module):
 
     def __init__(self, hidden_size, output_size):
         super(Generator, self).__init__()
-
+        
+        # 1차원의 형태로 output 설정
         self.output = nn.Linear(hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=-1)
 
@@ -162,21 +163,30 @@ class Seq2Seq(nn.Module):
 
         super(Seq2Seq, self).__init__()
 
+        # word embedding( input_size , word vector dimension)
         self.emb_src = nn.Embedding(input_size, word_vec_dim)
         self.emb_dec = nn.Embedding(output_size, word_vec_dim)
 
+        # Encoder 
         self.encoder = Encoder(
             word_vec_dim, hidden_size,
             n_layers=n_layers, dropout_p=dropout_p,
         )
+
+        # Decoder
         self.decoder = Decoder(
             word_vec_dim, hidden_size,
             n_layers=n_layers, dropout_p=dropout_p,
         )
+
+        # Attention
         self.attn = Attention(hidden_size)
 
+        # 예측을 위해 선형으로 차원 변경
         self.concat = nn.Linear(hidden_size * 2, hidden_size)
+        # activation 함수
         self.tanh = nn.Tanh()
+        # Generator (softmax 함수 - loss)
         self.generator = Generator(hidden_size, output_size)
 
     def generate_mask(self, x, length):
