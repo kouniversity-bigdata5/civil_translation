@@ -35,7 +35,7 @@ def write(fn, lines):
         f = open(fn, 'w')
 
         for line in lines:
-            f.write(line + '\n')
+            f.write(line + '|')
 
         f.close()
 

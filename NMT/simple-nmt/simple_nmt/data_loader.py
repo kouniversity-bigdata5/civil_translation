@@ -1,5 +1,8 @@
 import os
 from torchtext import data, datasets
+from .tokenizer import ko_tokenizer
+from .tokenizer import th_tokenizer
+
 
 PAD, BOS, EOS = 1, 2, 3
 
@@ -31,6 +34,7 @@ class DataLoader():
             fix_length=fix_length,
             init_token='<BOS>' if dsl else None,
             eos_token='<EOS>' if dsl else None,
+            tokenize=ko_tokenizer.ko_tokenizer()
         )
 
         self.tgt = data.Field(
@@ -41,6 +45,7 @@ class DataLoader():
             fix_length=fix_length,
             init_token='<BOS>' if use_bos else None,
             eos_token='<EOS>' if use_eos else None,
+            tokenize = th_tokenizer.th_tokenizer()
         )
 
         if train_fn is not None and valid_fn is not None and exts is not None:
