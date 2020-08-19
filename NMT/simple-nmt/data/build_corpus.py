@@ -16,15 +16,18 @@ def define_argparser():
     return config
 
 def read(fn):
-    f = open(fn, 'r')
+    lines = open(fn).read()
+    lines = lines.split('|')
+    return lines[:len(lines)-1]
+    # f = open(fn, 'r')
 
-    lines = []
-    for line in f:
-        lines += [line.strip()]
+    # lines = []
+    # for line in f:
+    #     lines += [line.strip()]
 
-    f.close()
+    # f.close()
 
-    return lines
+    # return lines
 
 def write(fn, lines):
     if len(lines) > 0:
@@ -32,7 +35,7 @@ def write(fn, lines):
         f = open(fn, 'w')
 
         for line in lines:
-            f.write(line + '\n')
+            f.write(line + '|')
 
         f.close()
 

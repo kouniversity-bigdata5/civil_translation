@@ -103,7 +103,7 @@ def to_text(indice, vocab):
 
 
 if __name__ == '__main__':
-    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+    # sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
     config = define_argparser()
 
     # Load saved model.
@@ -208,6 +208,7 @@ if __name__ == '__main__':
                 device='cuda:%d' % config.gpu_id if config.gpu_id >= 0 else 'cpu'
             )
 
+            unique_output = set()
             if config.beam_size == 1:
                 # Take inference for non-parallel beam-search.
                 y_hat, indice = model.search(x)
@@ -216,7 +217,12 @@ if __name__ == '__main__':
                 sorted_tuples = sorted(zip(output, orders), key=itemgetter(1))
                 output = [sorted_tuples[i][0] for i in range(len(sorted_tuples))]
 
-                sys.stdout.write('\n'.join(output) + '\n')
+                for i in range(len(output)):
+                    unique_output.add(output[0][i])
+                # output = list(set(output[0]))
+
+                # sys.stdout.write('\n'.join(unique_output) + '\n')
+                print(unique_output)
             else:
                 # Take mini-batch parallelized beam search.
                 batch_indice, _ = model.batch_beam_search(
@@ -231,8 +237,13 @@ if __name__ == '__main__':
                 output = []
                 for i in range(len(batch_indice)):
                     output += [to_text(batch_indice[i], loader.tgt.vocab)]
+
                 sorted_tuples = sorted(zip(output, orders), key=itemgetter(1))
                 output = [sorted_tuples[i][0] for i in range(len(sorted_tuples))]
 
+                # output = list(set(output[0]))
                 for i in range(len(output)):
-                    sys.stdout.write('\n'.join(output[i]) + '\n')
+                    unique_output.add(output[0][i])
+                
+                # sys.stdout.write('\n'.join(unique_output) + '\n')
+                print(unique_output)
