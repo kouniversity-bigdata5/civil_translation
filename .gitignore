@@ -49,3 +49,7 @@ NMT/simple-nmt/models/*
 Data/html서식/*
 NMT/ko_en_neural_machine_translation/embedding_train.txt
 NMT/ko_en_neural_machine_translation/__pycache__/*
+.idea/
+flaskProject3/.idea/*
+flaskProject3/__pycache__/*
+
