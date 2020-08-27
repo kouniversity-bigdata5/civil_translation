@@ -46,3 +46,6 @@ NMT/simple-nmt/simple_nmt/__pycache__/*
 NMT/simple-nmt/simple_nmt/models/__pycache__/*
 NMT/training_checkpoints/*
 NMT/simple-nmt/models/*
+Data/html서식/*
+NMT/ko_en_neural_machine_translation/embedding_train.txt
+NMT/ko_en_neural_machine_translation/__pycache__/*
