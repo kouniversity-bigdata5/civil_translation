@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+</head>
+<body>
+
+<h2>Tabs</h2>
+<p>기본적인 메뉴들 및 내용</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="opentab(event, 'introduction')">서비스 소개</button>
+    <button class="tablinks" onclick="opentab(event, 'Needs')">배경 및 필요성</button>
+    <button class="tablinks" onclick="opentab(event, 'Expectation')">기대 효과</button>
+    <button class="tablinks" onclick="opentab(event, 'Map')">전국 국내 체류 외국인 분포</button>
+    <button class="tablinks" onclick="opentab(event, 'Developer')">개발자 및 도움주신 분</button>
+</div>
+
+<div id="introduction" class="tabcontent">
+    <div class="back">
+        <img src="{{ url_for('static', filename = 'images/intro_2.png') }}" alt="Norway" /> <!--style="width:100%"-->
+    </div>
+    <h3>서비스 소개</h3>
+    <h4>2020년, 다문화사회를 살고 있는 우리에게 필요한 것은,</h4>
+    <p>관용, 인정, 차별금지등 많이 있지만 시급한 것은</p>
+    <h4><bold>"소수자 지원"</bold>입니다.</h4>
+    <p>지원이 가장 시급한 이유는 국내 체류 외국인들의 기본권 보장을 통한 삶의 질 향상이 가장 중요하기 때문입니다.</p>
+    <p>지원중에서 현재 가장 기존 서비스가 미비한 부분은 국내 체류 외국인들의 민원신청에 있습니다.</p>
+    <p>민원신청은 인간의 기본권 보장을 위한 최소한의 청구권입니다. 대한민국 국민들은 민원24시, 인터넷 민원, 무인 민원 발급기</p>
+    <p>등을 통하여 청구권을 행사할 수 있는 다양한 수단들이 존재합니다. 하지만 국내 체류 외국인들에게는 낯선 한국어와 인터넷 문화로</p>
+    <p>인하여 다양한 수단을 이용하기 쉽지 않은 것이 현실입니다. 그나마 직접 관공서를 방문하여 민원신청한는 것이 가장 직관적이고</p>
+    <p>간단한 해결방법이지만 아직 각 지자체 및 관공서에서 국내 체류 외국인들을 위한 번역서비스가 미비하여 관련 예산 및 인력 부족과</p>
+    <p>민원 처리에 상당한 시간이 소모되고 있습니다. 이러한 현상을 보완하고자 "고려대 빅데이터 청년캠퍼스 5조"에서 국내 체류 외국인들을</p>
+    <p>위한 민원 서식 번역서비스를 개발하게 되었습니다. 현재 제공하는 번역 서비스는 국내 체류외국인들의 비중 2위를 차지하는 태국어만 지원합니다.</p>
+    <p>국내 체류 외국인들의 비중을 참고하여 많이 차지하는 국가들부터 점차 번역서비스를 추가해나갈 계획입니다.</p>
+    <div class="back"><img src="{{ url_for('static', filename = 'images/intro_1.jpg') }}" alt="" /></div>
+</div>
+
+<div id="Needs" class="tabcontent">
+    <h1><bold>민원 번역 서비스 목적 및 사회적 필요성</bold></h1>
+    <p>- 외국인 주민 체류의 어려움이나 편법, 불법으로 인한 외국인에 대한 내국인의 부정적 인식이 증대</p>
+    <p>- 외국인 주민 대상 민원이 다양해지고 복잡해지고 있으며, 외국인 주민의 불편함을 최소화하기 위한 민원 서비스 개선이 필요</p>
+
+    <h2><bold>1. 국내 체류 외국인들의 증가</bold></h2>
+    <div class="back"><img src="{{ url_for('static', filename = 'images/back_1.png') }}" alt="" /></div>
+    <p>위의 그림을 보다시피외 국내 체류 외국인들은 매년 증가하고 있다. 매년 평균적으로 약 9%정도 증가하고 있으며, 2019년 기준으로 우리나라 전체 인구의 거의 5%을 차지하고 있다.</p>
+    <p>국내 체류 외국인들은 초기에는 중국인이 대부분이였으나 시간이 지날수록 국적이 다양해지고 있다. 국제결혼이 성행하던 시기에는 필리핀과 베트남국적의 체류 외국인들이 </p>
+    <p>급증하였고 최근에는 저렴한 노동력 확보를 위해 다른 동남아 국적의 체류 외국인들 또한 늘어나고 있다. 특히 태국국적의 체류 외국인들이 빠르게 상승하여 2018년 이후로는</p>
+    <p>중국 다음으로 국내 체류 외국인중 가장 많은 비중을 차지하고 있다. 국내 노동자들의 3D업종 기피현상과 저출산으로 인한 노동력 확보를 위한 외국인들의 유입은 계속될 것이다.</p>
+    <p>계속해서 늘어나는 국내 체류 국인들의 인권보장 및 삶의 질 향상을 위해 "고려대 빅데이터 청년캠퍼스 5조"에서는 민원 번역 서비스 도입이 시급하다고 판단하였다.</p>
+
+    <h2><bold>2. 기존의 문제점 개선</bold></h2>
+    <h3>- 법무서비스 분야</h3>
+    <p>법무서비스 분야의 출입국관리 업무는 민원서비스의 수요가 가장 많은 분야이다.</p>
+    <p>주로 체류자격 변경, 체규기간 연장, 체류지 변경 신청분야에서 특히 수요가 많으며 첨부서류가 복잡하고, 서식이 비효율적이며, 외국인 주민이
+        입국초기에 다양한 민원이 발생함으로 외국어 서비스에 대한 어려움도 제기되고 있다.</p>
+    <h3>- 노동서비스 분야</h3>
+    <p>노동서비스분야는 합법적 체류 외국인 주민의 취업요구가 매우 높아지지만 비합법적 취업이 많이 존재하는 괴리에서 불만이 많다.</p>
+    <p>비합법적 취업자 및 노동자 같은 경우는 취업 및 노동 형태를 신고하는 과정에서 어려움을 많이 겪고 있다. </p>
+    <p>합법적 체류 외국인 주민들은 취업정보 획득을 위한 민원서비스와 정보 불평등에에 어려움과 불만을 제기하고 있다.</p>
+    <h3>- 교육서비스 분야</h3>
+    <p>교육서비스 분야에서 외국인 주민이 느끼는 민원의 불편은 자녀교육에 대한 불평등과 방과 후 수업 등 보충적 학습기회에 대한 불편등이 있다.</p>
+    <p>그리고 최근 국내 체류 유학생이 크게 증가하는데 유학생 당사자가 학습기회의 보완, 직업관련 교육, 취업관련학습, 교육을 위한 복지서비스의 어려움을 제기하고 있다.</p>
+    <h3>- 사회복지 및 지방행정분야</h3>
+    <p>사회복지 및 지방행정분야의 민원서비스 수요는 외국인 주민이 내국인보다는 경제적 사회적 어려움이 더 크게 나타는데 그 원인이 있다.</p>
+    <p>주로 기초생활수급이나 긴급 의료복지서비스를 요청하고 있다. 이러한 서비스또한 법무 서비스 분야와 마찬가지로 첨부서류가 복잡하고, 서식이 비효율적이라 문제점이 있다.</p>
+    <p>이 분야는 국적의 미취득 또는 한국국적 외국인 주민도 지방자치단체에서 민원신청 및 처리가 복잡하고 불평등하다는 인식이 있어 보완이 필요하다.</p>
+    <h2><bold>3. 사회적 필요성</bold></h2>
+    <p>외국인주민의 기본권 보장, 지역공동체의 보편적 일원으로의 참여, 인권개선 등 외국인주민과 관련된 행정 수요가 증가하고 있다.</p>
+    <p>외국인의 불법체류와 강력범죄, 내국인의 외국인에 의한 인권침해와 임금체불 등 사회문제가 빈번하게 발생하여 사회적 이슈로 제기되고 있어,
+        외국인 주민과 관련된 사회문제를 최소화하기 위한 국가적 차원에서의 예방과 대응이 필요한 시점이다.</p>
+    <p>외국인주민이 성장지원 확대 및 교육지원에 관한 민원서비스 수요가 증가하여 이를 지원해줄 필요가 있다.</p>
+</div>
+
+<div id="Expectation" class="tabcontent">
+    <h2>기대효과</h2>
+    <h3>1. 예산 재분배 가능</h3>
+    <p>- 외국인 관련 예산의 재분배 기회 가능성 제공</p>
+    <p>  현재 국내 체류 외국인 관련 예산은 매년 증가하는 외국인에 비해 할당 예산이 매년 줄어들고 있는 추세이다.(관련 자료:<a href="https://www.sedaily.com/NewsVIew/1VGPRFFN2I">서울경제</a>)</p>
+    <p>이에 따라 외국인 관리가 쉽게 이루어지지 않고 있다. 안그래도 적은 예산으로 인한 정책으로 국민들에게 외국인에게 혈세를 낭비한다는 지적을 받고 있다.</p>
+    <p>이러한 상황에서 외국인 민원 관련 예산의 절약으로 다른 관련 정책을 수행함으로써 유동적인 예산의 재분배가 가능할 것으로 기대할 수 있다.</p>
+    <h3>2. 민원 접수 시간 절약</h3>
+    <p>- 민원 접수 시간 감소</p>
+    <p>  국민들의 민원 접수는 온라인을 통하여 24시가 이루어지고 있다. 하지만 국내 체류 외국인들은 24시간 서비스를 제대로 누리지 못하고 있다. 이에 따라</p>
+    <p>각 지자체 및 관공서에서는 별도로 전문 번역 인원이나 봉사자들을 통하여 외국인들을 위한 민원서비스 시간을 지정하여 운영하고 있다. (관련 자료:<a href="https://www.msn.com/ko-kr/news/national/%EB%8C%80%EA%B5%AC-%EB%82%A8%EA%B5%AC-%EC%99%B8%EA%B5%AD%EC%9D%B8-%EC%A3%BC%EB%AF%BC-%EB%AF%BC%EC%9B%90%ED%86%B5%EC%97%AD-%EC%84%9C%EB%B9%84%EC%8A%A4/ar-BB13wLIn">뉴시스</a>)</p>
+    <p>하지만 시간대가 한정적이고 해당 시간대에 몰리는 인원이 많아 실제 서비스에는 한계가 있는 실정이다.</p>
+    <p>이러한 상황에서 민원 번역 서비스가 제대로 제공된다면 접수시간을 감소함으로써 민원 처리의 편리성과 효율성을 증대할 수 있을 것이라 기대된다.</p>
+    <p>- 신속한 업무 순환 가능</p>
+    <p>  현재 각 관공서 및 지자체에서 외국인 민원 관련 처리에 어려움을 겪고 있는 이유는 접수부터가 원활하지 않기 때문이다. 따라서 간단한 일처리 조차도 접수부터 처리까지</p>
+    <p>2~2시간이 걸리는 상황이다. (관련 자료:<a href="http://mnews.imaeil.com/SocietyAll/2018060416594604850">매일신문</a>) 민원 처리의 가장 큰 관문인 접수가</p>
+    <p>우리 서비스를 통하여 획기적으로 시간 감소를 할 수 있다면 업무의 선순환이 가능할 것으로 기대된다.</p>
+    <h3>3. 업무 부담 감소</h3>
+    <p>- 민원 담당 근로자의 업무 부담감 감소</p>
+    <p>  매년 줄어드는 예산때문에 각 지자체 및 관공서에서는 외국인 관련 인력이 턱없이 부족한 것을 알지만 추가 인력 보충하기에는 요원한 상태이다.</p>
+    <p>통계에 따르면 대구 경북 거주 외국인은 11만명이지만 사무소 민원 전담 직원은 12명으로 1인당 약 만명을 담당하고 있는 상황이다. 또한 1인당 하루 약 400여건의</p>
+    <p>업무 처리를 하고 있어 민원 담당 근로자의 업무 부담감이 큰 상황이다. 이러한 상황에서 우리 서비스를 통하여 예산 분배의 선순환으로 추가 인력 배치나, 민원 접수에서의</p>
+    <p>부담감 및 스트레스를 줄일 수 있을 것이다.(관련 자료:<a href="http://mnews.imaeil.com/SocietyAll/2018060416594604850">매일신문</a>)</p>
+    <h3>4. 삶의 질 개선</h3>
+    <p>- 국내 체류 외국인들의 인권보장을 통한 삶의 질 향상</p>
+    <p>국내 체류 외국인들이 겪어야 하는 문제점은 상당히 많다. 차별적인 시선과 대우 그리고 남들과는 다른 급여, 공공서비스 이용을 위한 접근 제한, 정보 제한과 교육서비스 제한 등이 대표적인</p>
+    <p>문제점이다. 국내 체류 외국인들이 이러한 불평등을 극복하고 인권보장을 실현시키기 위해서는 민원을 통한 청구권 행사가 적법하고 가장 강력한 수단이다. 이러한 권리 행사를</p>
+    <p>제대로 누릴 수 있게 절차를 간소화 시켜주는 것이 우리 서비스의 목적이다. 글도 몰라서 불만사항을 접수조차 못하는 국내 체류 외국인들을 위하여 사용 방법만 알면 자신들의</p>
+    <p>인권 보장을 통한 삶의 질 향상에 많은 부분 기여할 수 있을 것이다.</p>
+    <div class="expect"><img src="{{ url_for('static', filename = 'images/expect_1.png') }}" alt="" /></div>
+</div>
+
+<div id="Map" class="tabcontent">
+    <h3>전국 국내 체류 외국인 분포도</h3>
+    <p>지도 넣어야함 / 분포도 및 년도별로</p>
+</div>
+
+<div id="Developer" class="tabcontent">
+    <h3>개발자</h3>
+    <p>이재현(korea7030.jhl@gamil.com) : </p>
+    <p>주상원(verc123@naver.com) : </p>
+    <p>이다혜(dhl5813@naver.com) : </p>
+    <p>조수현(irischo1011@gmail.com) : </p>
+    <h3>도움주신 분</h3>
+    <p>고려대 빅데이터 캠퍼스</p>
+    <p>멘토 : 선동언, 류기곤</p>
+</div>
+
+<script>
+function opentab(evt, pageName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(pageName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+</body>
+</html>
