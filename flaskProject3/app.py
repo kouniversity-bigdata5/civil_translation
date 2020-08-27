@@ -19,6 +19,10 @@ def upload_file():
       f.save('C:/Users/JSW/PycharmProjects/flaskProject3/upload/'+secure_filename(f.filename))
       return 'Please Waiting for translation'
 
+@app.route('/menu')
+def menu_file():
+   return render_template('menu_tab.html')
+
 
 if __name__ == '__main__':
     #서버 실행
