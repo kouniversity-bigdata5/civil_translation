@@ -41,19 +41,90 @@ body {font-family: Arial;}
   border: 1px solid #ccc;
   border-top: none;
 }
+
 </style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_95fdbb898108460e9615e3b30cce8155 {
+                    position: relative;
+                    width: 400px;
+                    height: 500px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+
 </head>
 <body>
 
-<h2>Tabs</h2>
-<p>기본적인 메뉴들 및 내용</p>
+<h1>민원 서식 번역 서비스</h1>
+<p>국내 체류 외국인들 위한 민원 서식 번역 서비스</p>
 
 <div class="tab">
+    <button class="tablinks" onclick="opentab(event, 'Service')">번역 서비스(Translation)</button>
     <button class="tablinks" onclick="opentab(event, 'introduction')">서비스 소개(About us)</button>
-    <button class="tablinks" onclick="opentab(event, 'Needs')">배경 및 필요성(Backgroung & Needs)</button>
+    <button class="tablinks" onclick="opentab(event, 'Needs')">배경 및 필요성(Background & Needs)</button>
     <button class="tablinks" onclick="opentab(event, 'Expectation')">기대 효과(Expected Effect)</button>
-    <button class="tablinks" onclick="opentab(event, 'Map')">전국 국내 체류 외국인 분포</button>
+    <button class="tablinks" onclick="opentab(event, 'Map')">전국 국내 체류 외국인 분포(Foreigner Distribution map)</button>
     <button class="tablinks" onclick="opentab(event, 'Developer')">개발자 및 도움주신 분(Developer)</button>
+</div>
+
+<div id="Service" class="tabcontent">
+    <style media="screen">
+      .flex_box{display: flex;justify-content:center;margin-top: 50px;}
+      .left{text-align: center;margin-right:50px; }
+      .right{text-align: center;margin-left: 50px;}
+    </style>
+    <head>
+        <meta charset="utf-8">
+        <title>번역기</title>
+    </head>
+        <body id="accel_form">
+            <div class="flex_box">
+                <div class="left">
+                    <div>
+                        번역할 민원을 업로드해주세요.(Please upload a hwp file)
+                    </div>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="input-file-now-custom-2" class="file-upload"
+                      data-height="500" />
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="">
+                        번역된 문서(Translated document)
+                    </div>
+                    <div>
+                        <textarea rows="8" cols="80" id="result_string" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </form>
 </div>
 
 <div id="introduction" class="tabcontent">
@@ -145,8 +216,7 @@ body {font-family: Arial;}
 </div>
 
 <div id="Map" class="tabcontent">
-    <h3>전국 국내 체류 외국인 분포도</h3>
-    <p>지도 넣어야함 / 분포도 및 년도별로</p>
+    <div class="folium-map" id="map_95fdbb898108460e9615e3b30cce8155" ></div>
 </div>
 
 <div id="Developer" class="tabcontent">
@@ -175,6 +245,301 @@ function opentab(evt, pageName) {
   evt.currentTarget.className += " active";
 }
 </script>
+<script>
 
+            var map_95fdbb898108460e9615e3b30cce8155 = L.map(
+                "map_95fdbb898108460e9615e3b30cce8155",
+                {
+                    center: [35.95, 128.25],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: true,
+                }
+            );
+
+
+            var tile_layer_803ff03be2694398802252a61884054d = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 5, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+            var marker_57e04fa1d55f4283a9de810e5d8049cf = L.marker(
+                [37.5650172, 126.8494648],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_5309449916b24b76bb2c7119a352feec = L.popup({"maxWidth": "100%"});
+
+
+            var html_a4ed0daca4ea46fdb33f555dbbb044a9 = $(`<div id="html_a4ed0daca4ea46fdb33f555dbbb044a9" style="width: 100.0%; height: 100.0%;">274,957명</div>`)[0];
+            popup_5309449916b24b76bb2c7119a352feec.setContent(html_a4ed0daca4ea46fdb33f555dbbb044a9);
+
+
+        marker_57e04fa1d55f4283a9de810e5d8049cf.bindPopup(popup_5309449916b24b76bb2c7119a352feec)
+        ;
+
+        var marker_9209b45a9fe8489b99578b5f141c8b90 = L.marker(
+                [35.1646889, 128.791607],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_4bc9a2e9cb9c4d2982e9e2f7d49e4828 = L.popup({"maxWidth": "100%"});
+
+
+            var html_396816d045284c3f9341b99124096e8d = $(`<div id="html_396816d045284c3f9341b99124096e8d" style="width: 100.0%; height: 100.0%;">39,991명</div>`)[0];
+            popup_4bc9a2e9cb9c4d2982e9e2f7d49e4828.setContent(html_396816d045284c3f9341b99124096e8d);
+
+
+        marker_9209b45a9fe8489b99578b5f141c8b90.bindPopup(popup_4bc9a2e9cb9c4d2982e9e2f7d49e4828)
+        ;
+
+        var marker_0a92f6143b984cfbbd1e6a00e3ede96f = L.marker(
+                [35.8799811, 128.286507],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_66b2b44b9d8440568a9eba2bd02941c2 = L.popup({"maxWidth": "100%"});
+
+
+            var html_e9176380178a4106b05312114063b9fd = $(`<div id="html_e9176380178a4106b05312114063b9fd" style="width: 100.0%; height: 100.0%;">26,141명</div>`)[0];
+            popup_66b2b44b9d8440568a9eba2bd02941c2.setContent(html_e9176380178a4106b05312114063b9fd);
+
+
+        marker_0a92f6143b984cfbbd1e6a00e3ede96f.bindPopup(popup_66b2b44b9d8440568a9eba2bd02941c2)
+        ;
+
+        var marker_13df72b72ba1406396c9d3f9e41be995 = L.marker(
+                [37.4647398, 126.534264],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_d578c7015c2a4dcfb39f6a5a13a0a5da = L.popup({"maxWidth": "100%"});
+
+
+            var html_f10c93a3ecce4890af7bad966da19675 = $(`<div id="html_f10c93a3ecce4890af7bad966da19675" style="width: 100.0%; height: 100.0%;">57,669명</div>`)[0];
+            popup_d578c7015c2a4dcfb39f6a5a13a0a5da.setContent(html_f10c93a3ecce4890af7bad966da19675);
+
+
+        marker_13df72b72ba1406396c9d3f9e41be995.bindPopup(popup_d578c7015c2a4dcfb39f6a5a13a0a5da)
+        ;
+
+        var marker_c82276b75d5944dbbf1b2bc646a67b41 = L.marker(
+                [35.1600766, 126.8492871],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_1148a6634bbd4ad4aa4ba90a21f4e71b = L.popup({"maxWidth": "100%"});
+
+
+            var html_1e9cb741cf994c43a4d9b19594e90ffc = $(`<div id="html_1e9cb741cf994c43a4d9b19594e90ffc" style="width: 100.0%; height: 100.0%;">18,455명</div>`)[0];
+            popup_1148a6634bbd4ad4aa4ba90a21f4e71b.setContent(html_1e9cb741cf994c43a4d9b19594e90ffc);
+
+
+        marker_c82276b75d5944dbbf1b2bc646a67b41.bindPopup(popup_1148a6634bbd4ad4aa4ba90a21f4e71b)
+        ;
+
+        var marker_ad806d312f6940c19b30c414c0237de5 = L.marker(
+                [36.3732947, 127.248714],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_055ba50218f045f4a83968d1f7aea990 = L.popup({"maxWidth": "100%"});
+
+
+            var html_c21de97e7fe34940a32bab25d64dbb23 = $(`<div id="html_c21de97e7fe34940a32bab25d64dbb23" style="width: 100.0%; height: 100.0%;">16,416명</div>`)[0];
+            popup_055ba50218f045f4a83968d1f7aea990.setContent(html_c21de97e7fe34940a32bab25d64dbb23);
+
+
+        marker_ad806d312f6940c19b30c414c0237de5.bindPopup(popup_055ba50218f045f4a83968d1f7aea990)
+        ;
+
+        var marker_1b4b6af92f8543efbb1148a712e5459d = L.marker(
+                [35.5622845, 129.071307],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_435976d738e544fd9843d54804de3c23 = L.popup({"maxWidth": "100%"});
+
+
+            var html_f3b8310163e644b09117eee609a1a4c5 = $(`<div id="html_f3b8310163e644b09117eee609a1a4c5" style="width: 100.0%; height: 100.0%;">26,183명</div>`)[0];
+            popup_435976d738e544fd9843d54804de3c23.setContent(html_f3b8310163e644b09117eee609a1a4c5);
+
+
+        marker_1b4b6af92f8543efbb1148a712e5459d.bindPopup(popup_435976d738e544fd9843d54804de3c23)
+        ;
+
+        var marker_bb8696a3ea38462c8775f6e04c6e8040 = L.marker(
+                [36.4801153, 127.2802806],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_9d0084e12b144e2eb04ac5dae3925439 = L.popup({"maxWidth": "100%"});
+
+
+            var html_755791935b6342d58e31716a8036bff9 = $(`<div id="html_755791935b6342d58e31716a8036bff9" style="width: 100.0%; height: 100.0%;">3,481명</div>`)[0];
+            popup_9d0084e12b144e2eb04ac5dae3925439.setContent(html_755791935b6342d58e31716a8036bff9);
+
+
+        marker_bb8696a3ea38462c8775f6e04c6e8040.bindPopup(popup_9d0084e12b144e2eb04ac5dae3925439)
+        ;
+
+        var marker_61c091147db64836bf75db0c3aa43072 = L.marker(
+                [37.5969948, 126.5354626],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_796ac429be6a4c2fb464b75d032b8238 = L.popup({"maxWidth": "100%"});
+
+
+            var html_b103db3a570145d497a573e3e0124cad = $(`<div id="html_b103db3a570145d497a573e3e0124cad" style="width: 100.0%; height: 100.0%;">369,665명</div>`)[0];
+            popup_796ac429be6a4c2fb464b75d032b8238.setContent(html_b103db3a570145d497a573e3e0124cad);
+
+
+        marker_61c091147db64836bf75db0c3aa43072.bindPopup(popup_796ac429be6a4c2fb464b75d032b8238)
+        ;
+
+         var marker_c4c98fbf209b4bf78a3cffa350d974e3 = L.marker(
+                [37.543934, 128.4702293],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_2b3747107eb64005b306dfbda675d7c7 = L.popup({"maxWidth": "100%"});
+
+
+            var html_077514f02f1c44a4952ee663fd67388f = $(`<div id="html_077514f02f1c44a4952ee663fd67388f" style="width: 100.0%; height: 100.0%;">15,108명</div>`)[0];
+            popup_2b3747107eb64005b306dfbda675d7c7.setContent(html_077514f02f1c44a4952ee663fd67388f);
+
+
+        marker_c4c98fbf209b4bf78a3cffa350d974e3.bindPopup(popup_2b3747107eb64005b306dfbda675d7c7)
+        ;
+
+        var marker_9d8ce189a7f14ae4a81c07d4f889a220 = L.marker(
+                [36.6343553, 126.8456439],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_d1f0bd5a66a84acdb8bc4065c1167fd8 = L.popup({"maxWidth": "100%"});
+
+
+            var html_a725b2834f9d4b2b8a0fe40865a4a804 = $(`<div id="html_a725b2834f9d4b2b8a0fe40865a4a804" style="width: 100.0%; height: 100.0%;">32,637명</div>`)[0];
+            popup_d1f0bd5a66a84acdb8bc4065c1167fd8.setContent(html_a725b2834f9d4b2b8a0fe40865a4a804);
+
+
+        marker_9d8ce189a7f14ae4a81c07d4f889a220.bindPopup(popup_d1f0bd5a66a84acdb8bc4065c1167fd8)
+        ;
+
+        var marker_11a6840335414f578ced824003516229 = L.marker(
+                [36.655112, 126.7914953],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_708139273d02465389b53975c91ca331 = L.popup({"maxWidth": "100%"});
+
+
+            var html_74aa9137dcef41d49d4f3ae7c9e99fc9 = $(`<div id="html_74aa9137dcef41d49d4f3ae7c9e99fc9" style="width: 100.0%; height: 100.0%;">56,583명</div>`)[0];
+            popup_708139273d02465389b53975c91ca331.setContent(html_74aa9137dcef41d49d4f3ae7c9e99fc9);
+
+
+        marker_11a6840335414f578ced824003516229.bindPopup(popup_708139273d02465389b53975c91ca331)
+        ;
+
+        var marker_aebecd348516417985f8113e5c14718d = L.marker(
+                [35.834352, 127.1117063],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_52d58cb6b7f34595957e1cc4320be647 = L.popup({"maxWidth": "100%"});
+
+
+            var html_a8d28d6337e3472aa568bfe25cd37107 = $(`<div id="html_a8d28d6337e3472aa568bfe25cd37107" style="width: 100.0%; height: 100.0%;">26,194명</div>`)[0];
+            popup_52d58cb6b7f34595957e1cc4320be647.setContent(html_a8d28d6337e3472aa568bfe25cd37107);
+
+
+        marker_aebecd348516417985f8113e5c14718d.bindPopup(popup_52d58cb6b7f34595957e1cc4320be647)
+        ;
+
+        var marker_85452b952660479182daf19ccc76888c = L.marker(
+                [34.8162186, 126.4607355],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_1fdae1073e01487891da6bf617e2a77b = L.popup({"maxWidth": "100%"});
+
+
+            var html_3715d811adbe45e2bcfca34c92577e65 = $(`<div id="html_3715d811adbe45e2bcfca34c92577e65" style="width: 100.0%; height: 100.0%;">30,566명</div>`)[0];
+            popup_1fdae1073e01487891da6bf617e2a77b.setContent(html_3715d811adbe45e2bcfca34c92577e65);
+
+
+        marker_85452b952660479182daf19ccc76888c.bindPopup(popup_1fdae1073e01487891da6bf617e2a77b)
+        ;
+
+        var marker_905a25747c974f4aa681d03cbd9ee14c = L.marker(
+                [36.5544072, 128.7244783],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_438f7c6552fd4a119fc461b133022b12 = L.popup({"maxWidth": "100%"});
+
+
+            var html_e3a7114dd911443cbe179a51be8b086a = $(`<div id="html_e3a7114dd911443cbe179a51be8b086a" style="width: 100.0%; height: 100.0%;">49,765명</div>`)[0];
+            popup_438f7c6552fd4a119fc461b133022b12.setContent(html_e3a7114dd911443cbe179a51be8b086a);
+
+
+        marker_905a25747c974f4aa681d03cbd9ee14c.bindPopup(popup_438f7c6552fd4a119fc461b133022b12)
+        ;
+
+        var marker_f8d4fcc00398431c96c190b31d9a95fc = L.marker(
+                [35.42235, 128.1937033],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_8e685d23326a4b20b928ffe14cb71af0 = L.popup({"maxWidth": "100%"});
+
+
+            var html_85b2a99cd28447e4851c4f19defe692c = $(`<div id="html_85b2a99cd28447e4851c4f19defe692c" style="width: 100.0%; height: 100.0%;">82,316명</div>`)[0];
+            popup_8e685d23326a4b20b928ffe14cb71af0.setContent(html_85b2a99cd28447e4851c4f19defe692c);
+
+
+        marker_f8d4fcc00398431c96c190b31d9a95fc.bindPopup(popup_8e685d23326a4b20b928ffe14cb71af0)
+        ;
+
+
+
+
+            var marker_099be4b455dd4f7b976004e40c82de0b = L.marker(
+                [33.5769613, 126.5844233],
+                {}
+            ).addTo(map_95fdbb898108460e9615e3b30cce8155);
+
+
+        var popup_8f023d9117444e40a836bdb4479c38a7 = L.popup({"maxWidth": "100%"});
+
+
+            var html_af2d4014cea6484c901daf2b2e782d8f = $(`<div id="html_af2d4014cea6484c901daf2b2e782d8f" style="width: 100.0%; height: 100.0%;">16,960명</div>`)[0];
+            popup_8f023d9117444e40a836bdb4479c38a7.setContent(html_af2d4014cea6484c901daf2b2e782d8f);
+
+
+        marker_099be4b455dd4f7b976004e40c82de0b.bindPopup(popup_8f023d9117444e40a836bdb4479c38a7)
+        ;
+
+</script>
 </body>
 </html>
