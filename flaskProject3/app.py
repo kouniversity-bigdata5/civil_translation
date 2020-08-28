@@ -94,9 +94,9 @@ def upload():
                     #  한글인 부분 번역 요청
                     for ko in ko_text:
                         # 번역 실행
-                        translate(ko_text)
+                        translate_txt = translate(ko.text)
                         # 번역 결과 List append
-                        translate_list.append(ko.text)
+                        translate_list.append(translate_txt)
 
                     #  번역한 리스트 개수만큼 content의 text에 replace
                     for i in range(len(translate_list)):
