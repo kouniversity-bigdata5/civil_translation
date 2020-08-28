@@ -52,7 +52,6 @@ def translate(text):
     return translated_text
 
 
-
 #업로드 HTML 렌더링
 @app.route('/')
 def render_file():
@@ -113,5 +112,10 @@ def menu_file():
    return render_template('menu_tab.html')
 
 
+@app.route('/map')
+def map():
+    return render_template('map.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
+
