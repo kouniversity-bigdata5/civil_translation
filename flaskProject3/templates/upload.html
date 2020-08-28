@@ -15,11 +15,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </head>
    <body>
+    <div class="container">
       <form action = "upload" method = "POST"
          enctype = "multipart/form-data">
          <input type = "file" value = "파일선택" name = "file"/>
          <input type = "submit" value = "translate"/>
       </form>
+    </div>
       <hr>
       {% if result %}
       <div>
