@@ -54,9 +54,28 @@ def translate(text):
 
 #업로드 HTML 렌더링
 @app.route('/')
-def render_file():
-    return render_template('upload.html')
+def index():
+    return render_template('index.html')
 
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+
+@app.route('/bg_needs.html')
+def bg_needs():
+    return render_template('bg_needs.html')
+
+@app.route('/developer.html')
+def developer():
+    return render_template('developer.html')
+
+@app.route('/effect.html')
+def effect():
+    return render_template('effect.html')
+
+@app.route('/index.html')
+def index_home():
+    return render_template('index.html')
 
 @app.errorhandler(Exception)
 @app.route('/upload', methods = ['POST'])
@@ -115,6 +134,10 @@ def menu_file():
 @app.route('/map')
 def map():
     return render_template('map.html')
+
+@app.route('/map_template.html')
+def map_template():
+    return render_template('map_template.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
