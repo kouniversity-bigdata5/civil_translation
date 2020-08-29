@@ -1,32 +1,68 @@
 <!DOCTYPE html>
 <html lang='ko'>
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <title>동남아 번역 시스템</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </head>
-   <body>
-    <div class="container">
-      <form action = "upload" method = "POST"
-         enctype = "multipart/form-data">
-         <input type = "file" value = "파일선택" name = "file"/>
-         <input type = "submit" value = "translate"/>
-      </form>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // loader hide
+            $("#loader").hide();
+
+            // submit 시 loader 활성화
+            $("#submit").on('click', function(){
+                $("#loader").show();
+            });
+
+            // file 선택되었을 때
+            $('form input').change(function () {
+                $('form p').text(this.files.length + " file(s) selected");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto px-md-5 mt-5">
+                <blockquote class="blockquote text-center">
+                <p class="mb-0">번역할 민원을 업로드 해주세요(Please upload a hwp file)</p>
+                </blockquote>
+                <form action="upload" method="POST" enctype = "multipart/form-data">
+                    <input type="file" name="file"  accept=".hwp"/>
+                        <p>Drag your files here or click in this area.</p>
+                    <button type="submit" id="submit">Upload</button>
+                </form>
+
+            </div>
+
+            <div class="col col-lg-6 px-md-5 mt-5">
+                {% if result %}
+                    <blockquote class="blockquote text-center">
+                        <p class="mb-0">번역된 문서(Translated document)</p>
+                    </blockquote>
+                    <div class="embed-responsive embed-responsive-16by9" style="margin-top:-10vh; height:100vh;">
+                        <iframe id="result_iframe" class="embed-responsive-item" src="{{ url_for('uploaded_file', filename=result) }}"
+                                style="-webkit-transform:scale(0.7);-moz-transform-scale(0.7); margin-top:-5vh;" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- loader -->
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" id="loader" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
     </div>
-      <hr>
-      {% if result %}
-      <div>
-        {{result|safe}}
-      </div>
-      {% endif %}
-   </body>
+</body>
 </html>
