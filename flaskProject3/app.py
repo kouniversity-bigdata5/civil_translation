@@ -71,11 +71,35 @@ def translate(text):
 
 #업로드 HTML 렌더링
 @app.route('/')
+
+def index():
+    return render_template('index.html')
+
 def render_file():
     # print(send_from_directory(os.path.join(basedir, app.config['UPLOADED_PATH']), '{}/{}'.format('jeqpbezi/result', 'index.xhtml')))
     # return render_template('upload.html', result='{}/{}'.format('ggnvuukh/result', 'result.xhtml'))
     return render_template('upload.html')
 
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+
+@app.route('/bg_needs.html')
+def bg_needs():
+    return render_template('bg_needs.html')
+
+@app.route('/developer.html')
+def developer():
+    return render_template('developer.html')
+
+@app.route('/effect.html')
+def effect():
+    return render_template('effect.html')
+
+@app.route('/index.html')
+def index_home():
+    return render_template('index.html')
 
 @app.route('/upload/<filename>', methods=["GET"])
 def uploaded_file(filename):
@@ -154,6 +178,11 @@ def menu_file():
 @app.route('/map')
 def map():
     return render_template('map.html')
+
+
+@app.route('/map_template.html')
+def map_template():
+    return render_template('map_template.html')
 
 
 if __name__ == '__main__':
