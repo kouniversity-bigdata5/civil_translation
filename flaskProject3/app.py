@@ -4,11 +4,14 @@ from hwp2html import hwp2html
 from bs4 import BeautifulSoup
 from werkzeug import SharedDataMiddleware
 from googletrans import Translator
+
+# import mxnet as mx
 import re
 import random
 import string
 import torch
-
+# from embedding_marker import load_embedding, load_vocab
+# from model import korean_english_translator
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -27,9 +30,25 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 })
 
 
-@app.before_first_request
-def before_first_request():
-    print('!!!!!!!!!!!!load model')
+
+# @app.before_first_request
+# def before_first_request():
+#     """
+#     model 초기 로딩
+#     :return:
+#     """
+#     embed_weights = load_embedding("ko_th.np")
+#     vocab_size = embed_weights.shape[0]
+#     embed_dim = embed_weights.shape[1]
+#     max_seq_length = 50
+#     app.ctx = mx.cpu(0)
+#     app.w2idx, app.idx2w = load_vocab("ko_th.dic")
+#     end_idx = app.w2idx['END']
+#
+#     app.model = korean_english_translator(384, vocab_size, embed_dim, max_seq_length, end_idx, attention=True)
+#     app.model.collect_params().initialize(mx.init.Xavier(), ctx=app.ctx)
+#
+#     app.model.load_params('models/ko_th_mdl_5_0827_from_mdl19.params', ctx=app.ctx)
 
 
 def get_random_string(length):
@@ -56,6 +75,11 @@ def cleansing(text):
     return text
 
 
+# def model_translate(text):
+#     eng_seq, _ = app.model.calulation(text, ko_dict=app.w2idx, en_dict=app.w2idx, en_rev_dict=app.idx2w, ctx=app.ctx)
+#     return '{}'.format(eng_seq)
+
+
 def translate(text):
     """
     googletrans를 이용한 번역
@@ -69,35 +93,33 @@ def translate(text):
     return translated_text
 
 
-#업로드 HTML 렌더링
 @app.route('/')
-
 def index():
     return render_template('index.html')
 
+@app.route('/translate')
 def render_file():
-    # print(send_from_directory(os.path.join(basedir, app.config['UPLOADED_PATH']), '{}/{}'.format('jeqpbezi/result', 'index.xhtml')))
-    # return render_template('upload.html', result='{}/{}'.format('ggnvuukh/result', 'result.xhtml'))
     return render_template('upload.html')
+    # return render_template('upload.html', result='{}/{}'.format('ggnvuukh/result', 'result.xhtml'))
 
 
-@app.route('/about.html')
+@app.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/bg_needs.html')
+@app.route('/bg_needs')
 def bg_needs():
     return render_template('bg_needs.html')
 
-@app.route('/developer.html')
+@app.route('/developer')
 def developer():
     return render_template('developer.html')
 
-@app.route('/effect.html')
+@app.route('/effect')
 def effect():
     return render_template('effect.html')
 
-@app.route('/index.html')
+@app.route('/index')
 def index_home():
     return render_template('index.html')
 
@@ -118,7 +140,9 @@ def upload():
     folder_name = get_random_string(8)  # 임의의 폴더 경로 생성
 
     if request.method == 'POST':
+        # print(request.form)
         f = request.files.get('file')
+        translation = request.form['translation']
         translate_list = []  # 번역한 문장 리스트
         content = ''  # 번역을 위한 content beautifulsoup
 
@@ -151,8 +175,14 @@ def upload():
 
                     #  한글인 부분 번역 요청
                     for ko in ko_text:
-                        # 번역 실행
-                        translate_txt = translate(cleansing(ko.text))
+                        # 번역 실행(google 번역기)
+                        if translation == '1':
+                            translate_txt = translate(cleansing(ko.text))
+                        else:
+                            pass
+                            # 자체모델 번역
+                            # translate_txt = model_translate(ko.text)
+
                         # 번역 결과 List append
                         translate_list.append(translate_txt)
 
@@ -180,7 +210,7 @@ def map():
     return render_template('map.html')
 
 
-@app.route('/map_template.html')
+@app.route('/map_template')
 def map_template():
     return render_template('map_template.html')
 
