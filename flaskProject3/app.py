@@ -179,7 +179,7 @@ def upload():
                             translate_txt = translate(cleansing(ko.text))
                         else:
                             # 자체모델 번역
-                            translate_txt = model_translate(ko.text)
+                            translate_txt = model_translate(cleansing(ko.text))
 
                         # 번역 결과 List append
                         translate_list.append(translate_txt)
