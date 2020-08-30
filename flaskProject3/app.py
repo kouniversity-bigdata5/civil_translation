@@ -5,13 +5,12 @@ from bs4 import BeautifulSoup
 from werkzeug import SharedDataMiddleware
 from googletrans import Translator
 
-# import mxnet as mx
+import mxnet as mx
 import re
 import random
 import string
-import torch
-# from embedding_marker import load_embedding, load_vocab
-# from model import korean_english_translator
+from embedding_marker import load_embedding, load_vocab
+from model import korean_english_translator
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -31,24 +30,24 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 
 
 
-# @app.before_first_request
-# def before_first_request():
-#     """
-#     model 초기 로딩
-#     :return:
-#     """
-#     embed_weights = load_embedding("ko_th.np")
-#     vocab_size = embed_weights.shape[0]
-#     embed_dim = embed_weights.shape[1]
-#     max_seq_length = 50
-#     app.ctx = mx.cpu(0)
-#     app.w2idx, app.idx2w = load_vocab("ko_th.dic")
-#     end_idx = app.w2idx['END']
-#
-#     app.model = korean_english_translator(384, vocab_size, embed_dim, max_seq_length, end_idx, attention=True)
-#     app.model.collect_params().initialize(mx.init.Xavier(), ctx=app.ctx)
-#
-#     app.model.load_params('models/ko_th_mdl_5_0827_from_mdl19.params', ctx=app.ctx)
+@app.before_first_request
+def before_first_request():
+    """
+    model 초기 로딩
+    :return:
+    """
+    embed_weights = load_embedding("ko_th.np")
+    vocab_size = embed_weights.shape[0]
+    embed_dim = embed_weights.shape[1]
+    max_seq_length = 50
+    app.ctx = mx.cpu(0)
+    app.w2idx, app.idx2w = load_vocab("ko_th.dic")
+    end_idx = app.w2idx['END']
+
+    app.model = korean_english_translator(384, vocab_size, embed_dim, max_seq_length, end_idx, attention=True)
+    app.model.collect_params().initialize(mx.init.Xavier(), ctx=app.ctx)
+
+    app.model.load_params('models/ko_th_mdl_5_0827_from_mdl19.params', ctx=app.ctx)
 
 
 def get_random_string(length):
@@ -75,9 +74,9 @@ def cleansing(text):
     return text
 
 
-# def model_translate(text):
-#     eng_seq, _ = app.model.calulation(text, ko_dict=app.w2idx, en_dict=app.w2idx, en_rev_dict=app.idx2w, ctx=app.ctx)
-#     return '{}'.format(eng_seq)
+def model_translate(text):
+    eng_seq, _ = app.model.calulation(text, ko_dict=app.w2idx, en_dict=app.w2idx, en_rev_dict=app.idx2w, ctx=app.ctx)
+    return '{}'.format(eng_seq)
 
 
 def translate(text):
@@ -181,7 +180,7 @@ def upload():
                         else:
                             pass
                             # 자체모델 번역
-                            # translate_txt = model_translate(ko.text)
+                            translate_txt = model_translate(ko.text)
 
                         # 번역 결과 List append
                         translate_list.append(translate_txt)

@@ -57,3 +57,9 @@ flaskProject3/ko_th.dic
 flaskProject3/ko_th.mdl
 flaskProject3/ko_th.np
 flaskProject3/models/
+flaskProject3/bert/*
+flaskProject3/fairseq/*
+flaskProject3/mosesdecoder/*
+flaskProject3/preprocess.ko-th/
+flaskProject3/interactive_bert.sh
+flaskProject3/interactive.py
