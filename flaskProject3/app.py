@@ -178,7 +178,6 @@ def upload():
                         if translation == '1':
                             translate_txt = translate(cleansing(ko.text))
                         else:
-                            pass
                             # 자체모델 번역
                             translate_txt = model_translate(ko.text)
 
