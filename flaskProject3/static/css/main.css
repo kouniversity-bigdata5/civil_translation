@@ -1,5 +1,5 @@
 form{
-  position: absolute;
+  position: relative;
   /*top: 50%;*/
   left: 50%;
   /*margin-top: -100px;*/
@@ -16,7 +16,7 @@ form p{
   color: #000000;
     border: 1px solid;
 }
-form input{
+form input[type="file"]{
   position: absolute;
   margin: 0;
   padding: 0;

@@ -1,0 +1,35 @@
+<nav class="ftco-nav" role="navigation">
+    <div class="top-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div id="ftco-logo"><a href="index">Home</a></div>
+                </div>
+                <div class="col-md-10 text-right menu-1">
+                    <ul id="nav-bar">
+                        <li><a href="translate">Translate</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="bg_needs">BG & Needs</a></li>
+                        <li><a href="map_template">Foreigner Map</a></li>
+                        <li><a href="effect">Expected Effect</a></li>
+                        <li><a href="developer">Developer</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<script type="text/javascript">
+   var activeclass = document.querySelectorAll('#nav-bar li');
+       for (var i = 0; i < activeclass.length; i++) {
+           console.log('1');
+            activeclass[i].addEventListener('click', activateClass);
+       }
+    function activateClass(e) {
+           console.log('2');
+        for (var i = 0; i < activeclass.length; i++) {
+            activeclass[i].classList.remove('active');
+        }
+        e.target.classList.add('active');
+    }
+</script>

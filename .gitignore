@@ -53,3 +53,7 @@ NMT/ko_en_neural_machine_translation/__pycache__/*
 flaskProject3/.idea/*
 flaskProject3/__pycache__/*
 flaskProject3/upload/*
+flaskProject3/ko_th.dic
+flaskProject3/ko_th.mdl
+flaskProject3/ko_th.np
+flaskProject3/models/
