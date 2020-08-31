@@ -12,6 +12,9 @@
 4. Text 후처리
 
 ## 소스코드
+### deep-text-recognition-benchmark
+이미지 텍스트 인식 모델
+
 ### east_example1/east_text_detection.py  
 east model을 활용한 text detection sample 소스  
 [참고소스](https://www.pyimagesearch.com/2018/08/20/opencv-text-detection-east-text-detector/)
@@ -19,3 +22,6 @@ east model을 활용한 text detection sample 소스
 ### text_detection_east/*
 한글 OCR git 참고(진행중) 
 [참고소스](https://github.com/parksunwoo/ocr_kor)
+
+### text_detection.ipynb
+pytesseract를 이용한 이미지 인식

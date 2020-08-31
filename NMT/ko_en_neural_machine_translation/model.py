@@ -5,8 +5,8 @@ import mxnet.autograd as autograd
 import mxnet as mx
 from  mxnet import gluon
 from mxnet.gluon import nn, rnn
-from konlpy.tag import Mecab
-mecab = Mecab()
+from konlpy.tag import Mecab, Okt
+okt = Okt()
 
 
 def pad_sequences(sequences, maxlen=None, dtype='int32',
@@ -176,7 +176,7 @@ class korean_english_translator(gluon.HybridBlock):
         inference 코드 
         """
         #앞뒤에 START,END 코드 추가 
-        input_str = [['START', ] + mecab.morphs(input_str.strip()) + ['END', ],]
+        input_str = [['START', ] + okt.morphs(input_str.strip()) + ['END', ],]
         X = encoding_and_padding(input_str, ko_dict, max_seq=self.max_seq_length)
         #string to embed 
         inputs = F.array(X, ctx=ctx)
