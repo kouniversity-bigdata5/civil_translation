@@ -177,7 +177,7 @@ trdg==1.6.0
 tweepy==3.9.0
 typing-extensions==3.7.4.2
 update-checker==0.17
-urllib3==1.25.9
+urllib3==1.26.5
 velruse==1.1.1
 venusian==3.0.0
 visions==0.4.4
