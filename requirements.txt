@@ -108,7 +108,7 @@ petitions-dataset==1.0.0
 pexpect==4.8.0
 phik==0.10.0
 pickleshare==0.7.5
-Pillow==7.0.0
+Pillow==9.0.1
 plaster==1.0
 plaster-pastedeploy==0.7
 prometheus-client==0.8.0
